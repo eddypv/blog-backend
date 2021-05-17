@@ -31,6 +31,15 @@ app.get('/api/blogs', (request, response) => {
         })
 })
 
+app.post('/api/blogs', (request, response)=> {
+    const newBlog = request.body
+    const blog = new Blog(newBlog)
+    blog.save()
+        .then(result => {
+            response.json(result)
+        })
+})
+
 
 
 const PORT = 3003

@@ -1,0 +1,14 @@
+
+### GET /api/blogs
+GET http://localhost:3003/api/blogs
+
+### POST /api/blogs
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title":"React vs Vue",
+    "author":"Eddy Perez",
+    "url":"http://localhost:3003/api/blogs",
+    "likes":1
+}
