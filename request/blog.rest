@@ -1,14 +1,14 @@
 
 ### GET /api/blogs
-GET http://localhost:3003/api/blogs
+GET http://localhost:3003/api/blogs/
 
 ### POST /api/blogs
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
 
 {
-    "title":"python vs PHP",
-    "author":"Eddy Perez",
-    "url":"http://localhost:3003/api/blogs",
-    "likes":1
+    "title":"title",
+    "author":"author",
+    "url":"http://localhost.com/api/blogs",
+    "likes":0
 }
