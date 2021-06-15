@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const supertest = require('supertest')
 const {app, server} = require('../index')
-const {blogs} = require('./helper_blogs')
+const {blogs, blogsInDb} = require('./helper_blogs')
 const Blog = require('../models/blog')
 const api = supertest(app)
 
@@ -49,9 +49,8 @@ describe("create blog", ()=>{
             .post(URL)
             .send(newBlog)
             .expect(200)
-        const response = await api.get(URL)
-        const blogList = response.body.map((item)=> item.title)
-        expect(response.body).toHaveLength(blogs.length +1)
+        const blogList = await blogsInDb()
+        expect(blogList).toHaveLength(blogs.length +1)
         expect(blogList).toContainEqual(newBlog.title)
 
     })
@@ -66,9 +65,8 @@ describe("create blog", ()=>{
                 .send(newBlog)
                 .expect(200)
                 .expect("Content-Type", /json/)
-        const response = await api.get(URL)
-        const {body} = response 
-        const blogList = body.map((item)=> item.title)
+        
+        const blogList = await blogsInDb()
         expect(blogList).toHaveLength(blogs.length +1)
         expect(blogList).toContain(newBlog.title)
     })

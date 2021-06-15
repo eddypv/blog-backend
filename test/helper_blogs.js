@@ -1,3 +1,5 @@
+const Blog = require('../models/blog')
+
 const blogs = [
     {
         "title":"Ejemplo 1",
@@ -19,6 +21,13 @@ const blogs = [
     }
 ]
 
+const blogsInDb = async () =>{
+    const blogs= await Blog.find({})
+    const blogList = blogs.map(item => item.title)
+    return blogList
+}
+
 module.exports = {
-    blogs
+    blogs,
+    blogsInDb
 }
