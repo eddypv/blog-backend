@@ -4,13 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon index.js",
-    "start": "node index.js",
-    "test":"jest --verbose"
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "test": "cross-env NODE_ENV=test jest --verbose"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "jest": "27.0.4",
     "nodemon": "2.0.7"
   },
@@ -20,7 +21,7 @@
     "express": "4.17.1",
     "mongoose": "5.12.9"
   },
-  "jest":{
-    "testEnvironment":"node"
+  "jest": {
+    "testEnvironment": "node"
   }
 }
