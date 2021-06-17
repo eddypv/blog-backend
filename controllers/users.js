@@ -5,16 +5,23 @@ const bcrypt = require('bcrypt')
 usersRouter.post('/', async (request, response, next)=>{
     const {name, username, password} = request.body
     try{
+        if(password.length < 3){
+            const error = new Error('The password is not valid')
+            error.name = 'MongoError'
+            next(error)
+            return 
+        }
         const salt = 10
-        const passwordHash= bcrypt.hash(password, salt)
+        const passwordHash= await bcrypt.hash(password, salt)
         const newUser = new User({
-            name, username, passwordHash
+            name, username, password:passwordHash
         })
         
         const userCreated = await newUser.save()
-        response.json(userCreated)
+        response.status(201).json(userCreated)
 
     }catch(error){
+        
         next(error)
     }
 

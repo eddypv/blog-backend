@@ -1,4 +1,5 @@
 const Blog = require('../models/blog')
+const User = require('../models/user')
 const superTest = require('supertest')
 const {app} = require('../index')
 const api = superTest(app)
@@ -28,9 +29,15 @@ const blogsInDb = async () =>{
     const blogList = blogs.map(item => item.title)
     return blogList
 }
+const usersInDb = async()=>{
+    const users = await User.find({})
+    const userList = users.map(item => item.username)
+    return userList
+}
 
 module.exports = {
     blogs,
     blogsInDb,
+    usersInDb,
     api
 }
