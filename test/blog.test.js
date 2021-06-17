@@ -1,12 +1,14 @@
 const mongoose = require('mongoose')
 const {server} = require('../index')
-const {blogs, blogsInDb, api} = require('./helper')
+const {blogs, blogsInDb, api, getUserDefault} = require('./helper')
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 
 const URL = "/api/blogs/"
 beforeEach(async ()=>{
     await Blog.deleteMany({})
+    await User.deleteMany({});
     for(const blogItem of blogs){
         const blog = new Blog(blogItem)
         await blog.save()
@@ -38,11 +40,14 @@ describe("blog list",  ()=>{
 
 describe("create blog", ()=>{
     test("when register correctly", async()=>{
+        const userCreated = await getUserDefault()
+        
         const newBlog = {
             title:"Ejemplo 1",
             author:"author",
             url:"http://localhost.com/api/blogs",
-            likes:0
+            likes:0,
+            userId:userCreated.id
         }
         await api
             .post(URL)
@@ -54,10 +59,12 @@ describe("create blog", ()=>{
 
     })
     test("when do not send the property likes by default is zero", async()=>{
+        const userCreated = await getUserDefault()
         const newBlog = {
             title:"Ejemplo sin likes",
             author:"author",
-            url:"http://localhost.com/api/blogs"
+            url:"http://localhost.com/api/blogs",
+            userId:userCreated.id
         }
         await api
                 .post(URL)

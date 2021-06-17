@@ -34,10 +34,20 @@ const usersInDb = async()=>{
     const userList = users.map(item => item.username)
     return userList
 }
+const getUserDefault = async ()=>{
+    const userDefault = {
+        username:'juan.perez',
+        name:"Juan Perez",
+        password:"JuanPerez"
+    }
+    const userCreated = await api.post('/api/users/').send(userDefault)
+    return userCreated.body
+}
 
 module.exports = {
     blogs,
     blogsInDb,
     usersInDb,
-    api
+    api,
+    getUserDefault
 }
