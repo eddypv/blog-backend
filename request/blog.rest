@@ -10,7 +10,8 @@ Content-Type: application/json
     "title":"Ejemplo 1",
     "author":"author",
     "url":"http://localhost.com/api/blogs",
-    "likes":0
+    "likes":0,
+    "userId":"60cbbb13ff87301424602b17"
 }
 ### DELETE /api/blogs/:id
 DELETE http://localhost:3003/api/blogs/60c8c652064a390b54a325e0

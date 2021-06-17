@@ -7,3 +7,6 @@ Content-Type: application/json
     "username":"midudev",
     "password":"123"
 }
+
+### GET /api/users/
+GET http://localhost:3003/api/users/
