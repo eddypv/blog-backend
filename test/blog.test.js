@@ -1,9 +1,8 @@
 const mongoose = require('mongoose')
-const supertest = require('supertest')
-const {app, server} = require('../index')
-const {blogs, blogsInDb} = require('./helper_blogs')
+const {server} = require('../index')
+const {blogs, blogsInDb, api} = require('./helper')
 const Blog = require('../models/blog')
-const api = supertest(app)
+
 
 const URL = "/api/blogs/"
 beforeEach(async ()=>{

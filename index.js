@@ -6,6 +6,7 @@ const mongoose = require('mongoose')
 const logger = require('./utils/logger')
 const blogRouter = require('./controllers/blogs')
 const {requestLogger, unknownEndpoint, errorHandler} = require('./utils/middleware')
+const userRouter = require('./controllers/users')
 
 
 const mongoURL = config.MONGO_URL
@@ -20,6 +21,7 @@ app.use(express.json())
 app.use(express.static('build'))
 app.use(requestLogger) 
 app.use('/api/blogs',blogRouter)
+app.use('/api/users',userRouter)
 app.use(unknownEndpoint)
 app.use(errorHandler)
 

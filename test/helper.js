@@ -1,5 +1,7 @@
 const Blog = require('../models/blog')
-
+const superTest = require('supertest')
+const {app} = require('../index')
+const api = superTest(app)
 const blogs = [
     {
         "title":"Ejemplo 1",
@@ -29,5 +31,6 @@ const blogsInDb = async () =>{
 
 module.exports = {
     blogs,
-    blogsInDb
+    blogsInDb,
+    api
 }
