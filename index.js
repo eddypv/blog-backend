@@ -7,6 +7,7 @@ const logger = require('./utils/logger')
 const blogRouter = require('./controllers/blogs')
 const {requestLogger, unknownEndpoint, errorHandler} = require('./utils/middleware')
 const userRouter = require('./controllers/users')
+const loginRouter = require('./controllers/login')
 
 
 const mongoURL = config.MONGO_URL
@@ -22,6 +23,7 @@ app.use(express.static('build'))
 app.use(requestLogger) 
 app.use('/api/blogs',blogRouter)
 app.use('/api/users',userRouter)
+app.use('/api/login',loginRouter)
 app.use(unknownEndpoint)
 app.use(errorHandler)
 

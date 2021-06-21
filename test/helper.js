@@ -3,6 +3,11 @@ const User = require('../models/user')
 const superTest = require('supertest')
 const {app} = require('../index')
 const api = superTest(app)
+const userDefault = {
+    username:'juan.perez',
+    name:"Juan Perez",
+    password:"JuanPerez"
+}
 const blogs = [
     {
         "title":"Ejemplo 1",
@@ -34,13 +39,9 @@ const usersInDb = async()=>{
     const userList = users.map(item => item.username)
     return userList
 }
-const getUserDefault = async ()=>{
-    const userDefault = {
-        username:'juan.perez',
-        name:"Juan Perez",
-        password:"JuanPerez"
-    }
-    const userCreated = await api.post('/api/users/').send(userDefault)
+const getUserDefault = async (user=userDefault)=>{
+    
+    const userCreated = await api.post('/api/users/').send(user)
     return userCreated.body
 }
 
