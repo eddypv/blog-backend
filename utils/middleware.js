@@ -38,12 +38,23 @@ const userExtractor = (request, response, next) =>{
       next(error)
       return 
     }
-    const token = authorization.split(' ')[1]
+    let [type, token] = authorization.split(' ')
+    type = type.toLowerCase()
+
+    
+    if(type  !== 'bearer'){
+      const error = new Error('Error')
+      error.name ='JsonWebTokenError'
+      next(error)
+      return 
+    }
+    console.log("virify")
     const payload  = jwt.verify(token, JWT_SECRET)
     request.user = payload.id
     next()
   }catch(error){
     // pass the error to middleware error 
+    console.log("errooooo r", error)
     next(error)
   }
 }

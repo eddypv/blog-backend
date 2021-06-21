@@ -44,11 +44,17 @@ const getUserDefault = async (user=userDefault)=>{
     const userCreated = await api.post('/api/users/').send(user)
     return userCreated.body
 }
-
+const getLogin = (async (username, password)=>{
+    const data = {username, password}
+    const response = await api.post('/api/login/').send(data) 
+    return response.body
+}) 
 module.exports = {
     blogs,
     blogsInDb,
     usersInDb,
     api,
-    getUserDefault
+    getUserDefault,
+    userDefault,
+    getLogin
 }
