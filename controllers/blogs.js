@@ -1,6 +1,7 @@
 const blogRouter = require('express').Router()
 const Blog = require('../models/blog')
 const User = require('../models/user')
+
 blogRouter.get('/', async (request, response) => {
     const blogs = await Blog.find({}).populate('user',{
        username:1,
@@ -9,9 +10,10 @@ blogRouter.get('/', async (request, response) => {
     response.json(blogs)
 })
 
-blogRouter.post('/', async (request, response, next)=> {
+blogRouter.post('/',async (request, response, next)=> {
     try{
-        const {title, author, likes, url, userId} = request.body
+        const {title, author, likes, url} = request.body
+        const userId = request.user
         const blog = new Blog({
             title, 
             author, 
@@ -34,6 +36,12 @@ blogRouter.delete('/:id', async (request, response, next)=>{
     try{
         
         const id = request.params.id
+        const userId = request.user 
+        const blog = await Blog.findById(id)
+        console.log(blog.user.toString(), userId.toString())
+        if(blog.user.toString() !== userId.toString()){
+            return response.status(401).json({error:"This is blog can be deleted for this user"})
+        }
         const blogDeleted = await Blog.findByIdAndDelete(id)
         if(blogDeleted){
             response.status(204).end()

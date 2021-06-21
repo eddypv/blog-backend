@@ -1,4 +1,6 @@
 const logger = require('./logger')
+const jwt = require('jsonwebtoken')
+const {JWT_SECRET} = require('../utils/config')
 
 const requestLogger = (request, response, next) =>{
     logger.info('Method:', request.method)
@@ -20,12 +22,34 @@ const unknownEndpoint = (request, response) => {
       return response.status(400).json({ error: error.message })
     }else if(error.name === "MongoError"){
       return response.status(400).json({ error: error.message })
+    }else if(error.name === 'JsonWebTokenError'){
+      console.log("Middleware JSONWeb")
+      return response.status(401).json({error:'Token is invalid or missing'})
     }
-  
+    
     next(error)
   }
+const userExtractor = (request, response, next) =>{
+  try{
+    const authorization = request.get('Authorization')
+    if(!authorization){
+      const error = new Error('Error')
+      error.name ='JsonWebTokenError'
+      next(error)
+      return 
+    }
+    const token = authorization.split(' ')[1]
+    const payload  = jwt.verify(token, JWT_SECRET)
+    request.user = payload.id
+    next()
+  }catch(error){
+    // pass the error to middleware error 
+    next(error)
+  }
+}
 module.exports = {
     requestLogger,
     unknownEndpoint,
-    errorHandler
+    errorHandler,
+    userExtractor
 }

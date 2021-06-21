@@ -1,10 +1,13 @@
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDBiYzFlNDk5Zjc0NGRmMGFmMTFkMCIsInVzZXJuYW1lIjoiZWRkeS5wZXJleiIsImlhdCI6MTYyNDI5OTA5NH0.UTdgVw6ZtV10ILdIQGmyN3fJs-B5DW6uMu90ACzBkio
 
 ### GET /api/blogs
 GET http://localhost:3003/api/blogs/
+Authorization: {{token}}
 
 ### POST /api/blogs
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
+Authorization: {{token}}
 
 {
     "title":"Ejemplo 1",
@@ -14,11 +17,13 @@ Content-Type: application/json
     
 }
 ### DELETE /api/blogs/:id
-DELETE http://localhost:3003/api/blogs/60c8c652064a390b54a325e0
+DELETE http://localhost:3003/api/blogs/60d0e053f123b91d5c072c78
+Authorization: {{token}}
 
 ### PUT /api/blogs/:id
-PUT http://localhost:3003/api/blogs/60c8b70b6053913e287dd9f8
+PUT http://localhost:3003/api/blogs/60cbbb1cff87301424602b18
 Content-Type: application/json
+Authorization: {{token}}
 
 {
     "title":"Ejemplo 3",
