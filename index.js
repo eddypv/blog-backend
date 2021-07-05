@@ -9,7 +9,6 @@ const {requestLogger, unknownEndpoint, errorHandler, userExtractor } = require('
 const userRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 
-
 const mongoURL = config.MONGO_URL
 mongoose.connect(mongoURL, {
     useNewUrlParser:true, 
@@ -24,6 +23,12 @@ app.use(requestLogger)
 app.use('/api/blogs',userExtractor,blogRouter)
 app.use('/api/users',userRouter)
 app.use('/api/login',loginRouter)
+// only in test
+if(process.env.NODE_ENV === "test"){
+  const testingRouter = require('./controllers/testing')
+  app.use('/api/testing', testingRouter)
+}
+
 app.use(unknownEndpoint)
 app.use(errorHandler)
 
