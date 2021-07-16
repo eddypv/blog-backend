@@ -3,11 +3,13 @@ const {Schema, model} = require('mongoose')
 const CommentSchema = Schema({
   content:{
     type:String,
-    default:""
+    default:"",
+    required:true
   },
   blog:{
     type:Schema.Types.ObjectId,
-    ref:'Blog'
+    ref:'Blog',
+    required:true
   }
 
 })

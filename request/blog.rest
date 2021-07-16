@@ -32,4 +32,18 @@ Authorization: {{token}}
     "likes":12
 }
 
+###
+POST http://localhost:3003/api/blogs/60cbbb1cff87301424602b18/comments
+Authorization: {{token}}
+Content-Type: application/json
+
+{
+    "content":"asdasd"
+}
+
+###
+GET http://localhost:3003/api/blogs/60cbbb1cff87301424602b18/comments
+Authorization: {{token}}
+Content-Type: application/json
+
 
